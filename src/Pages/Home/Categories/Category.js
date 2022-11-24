@@ -12,7 +12,7 @@ const Category = ({ truckCategory }) => {
             <div className="card-body text-center">
                 <h2 className="card-title justify-center text-2xl font-bold">{catName}</h2>
                 <p>{catDescription}</p>
-                <Link to={`/truck-category/${catName}`}>
+                <Link to={`/trucks/${catName}`}>
                     <PrimaryButton classes="w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-[#23292E] hover:text-white text-gray-100">
                         Show all {catName}
                     </PrimaryButton>

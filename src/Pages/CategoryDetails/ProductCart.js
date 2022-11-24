@@ -1,5 +1,5 @@
 import React from "react";
-import { GiWeight, GiTruck } from "react-icons/gi";
+import { GiWeight, GiTruck, GiRoad } from "react-icons/gi";
 import { GrCalendar, GrCurrency, GrMap } from "react-icons/gr";
 import PrimaryButton from "../../Components/Button/PrimaryButton";
 const ProductCart = ({ truck }) => {
@@ -29,7 +29,7 @@ const ProductCart = ({ truck }) => {
                     <span>
                         {brandName} {model}
                     </span>
-                    <div className="badge badge-warning">{askingPrice.toLocaleString()} Tk</div>
+                    <div className="badge badge-warning">{parseInt(askingPrice).toLocaleString()} Tk</div>
                 </h2>
                 <div className="card-actions justify-around">
                     <div className="flex w-full">
@@ -40,7 +40,7 @@ const ProductCart = ({ truck }) => {
                         <div className="divider divider-horizontal m-0"></div>
                         <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
                             <GrCurrency></GrCurrency>
-                            {purchasePrice}
+                            {parseInt(purchasePrice).toLocaleString()}
                         </div>
                         <div className="divider divider-horizontal m-0"></div>
                         <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
@@ -51,6 +51,11 @@ const ProductCart = ({ truck }) => {
                         <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
                             <GrCalendar></GrCalendar>
                             {registrationYear}
+                        </div>
+                        <div className="divider divider-horizontal m-0"></div>
+                        <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
+                            <GiRoad></GiRoad>
+                            {milageKM}
                         </div>
                     </div>
                     <div className="flex w-full">

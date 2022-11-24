@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "../Layout/Main";
 import Blog from "../Pages/Blogs/Blog";
 import CategoryDetails from "../Pages/CategoryDetails/CategoryDetails";
+import AddAProduct from "../Pages/Dashboard/AddAProduct/AddAProduct";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -22,8 +23,8 @@ const router = createBrowserRouter([
                 element: <Home></Home>,
             },
             {
-                path: "/truck-category/:id",
-                loader: ({ params }) => fetch(`${process.env.REACT_APP_API_URL}/truck-category/${params.id}`),
+                path: "/trucks/:id",
+                loader: ({ params }) => fetch(`${process.env.REACT_APP_API_URL}/trucks/${params.id}`),
                 element: <CategoryDetails></CategoryDetails>,
             },
             {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "/blog",
                 element: <Blog></Blog>,
+            },
+            {
+                path: "/add-a-product",
+                element: <AddAProduct></AddAProduct>,
             },
         ],
     },

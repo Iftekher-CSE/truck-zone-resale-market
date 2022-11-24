@@ -1,0 +1,13 @@
+.active {
+    color: black;
+    font-weight: 700;
+    background-color: #fbe122;
+}
+a:hover {
+    text-decoration: underline #fbe122 5px;
+    background-color: none;
+}
+button:hover {
+    text-decoration: underline #fbe122 5px;
+    background-color: none;
+}

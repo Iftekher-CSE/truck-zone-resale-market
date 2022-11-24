@@ -1,18 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { FaFacebook, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 import { Link, useNavigate } from "react-router-dom";
+import { userJWT } from "../../api/userJWT";
 import PrimaryButton from "../../Components/Button/PrimaryButton";
 import SmallSpinner from "../../Components/Spinner/SmallSpinner";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Register = () => {
+    const [errorMessage, setErrorMessage] = useState("");
     const { createUser, updateUserProfile, signInWithGoogle, setUser, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handelSignUp = event => {
+        setErrorMessage("");
         setLoading(true);
         event.preventDefault();
         const name = event.target.name.value;
@@ -43,15 +46,18 @@ const Register = () => {
                         updateUserProfile(name, imageData.data.display_url)
                             .then(() => {
                                 toast.success("You have registered successfully");
+                                userJWT(user, accountType);
                                 setLoading(false);
                                 navigate("/");
                             })
                             .catch(err => {
+                                setErrorMessage(err.message);
                                 setLoading(false);
                                 console.error(err);
                             });
                     })
                     .catch(err => {
+                        setErrorMessage(err.message);
                         setLoading(false);
                         console.error(err);
                     });
@@ -69,6 +75,7 @@ const Register = () => {
                 console.log(user);
                 setUser(user);
                 toast.success("You have registered successfully");
+                userJWT(user, "user-account");
                 setLoading(false);
                 navigate("/");
             })
@@ -164,12 +171,10 @@ const Register = () => {
                             />
                         </div>
                     </div>
+                    <p className="text-red-500">{errorMessage && errorMessage}</p>
                     <div className="space-y-2">
                         <div>
-                            <PrimaryButton
-                                type="submit"
-                                classes="w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-[#23292E] hover:text-white text-gray-100"
-                            >
+                            <PrimaryButton type="submit" classes="w-full px-8 py-3 font-semibold">
                                 {loading ? <SmallSpinner></SmallSpinner> : "Register"}
                             </PrimaryButton>
                         </div>

@@ -17,21 +17,26 @@ const NavBar = () => {
                     Blog
                 </NavLink>
             </li>
-            <li>
-                <button onClick={logout} className="px-4 py-4 mx-2 rounded-b-2xl">
-                    Log Out
-                </button>
-            </li>
-            <li>
-                <NavLink className="px-4 py-4 mx-2 rounded-b-2xl" to="/login">
-                    Login
-                </NavLink>
-            </li>
-            <li>
-                <NavLink className="px-4 py-4 mx-2 rounded-b-2xl" to="/register">
-                    Register
-                </NavLink>
-            </li>
+            {user?.uid ? (
+                <li>
+                    <button onClick={logout} className="px-4 py-4 mx-2 rounded-b-2xl">
+                        Log Out
+                    </button>
+                </li>
+            ) : (
+                <>
+                    <li>
+                        <NavLink className="px-4 py-4 mx-2 rounded-b-2xl" to="/login">
+                            Login
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="px-4 py-4 mx-2 rounded-b-2xl" to="/register">
+                            Register
+                        </NavLink>
+                    </li>
+                </>
+            )}
         </>
     );
     return (

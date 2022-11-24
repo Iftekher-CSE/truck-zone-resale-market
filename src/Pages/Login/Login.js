@@ -6,6 +6,7 @@ import SmallSpinner from "../../Components/Spinner/SmallSpinner";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { userJWT } from "../../api/userJWT";
 
 const Login = () => {
     const { signIn, signInWithGoogle, setUser, loading, setLoading, resetPassword } = useContext(AuthContext);
@@ -25,6 +26,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                userJWT(user);
                 navigate(form, { replace: true });
             })
             .catch(err => {
@@ -39,6 +41,7 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setUser(user);
+                userJWT(user, "user-account");
                 toast.success("You have Logged In successfully");
                 setLoading(false);
                 navigate("/");

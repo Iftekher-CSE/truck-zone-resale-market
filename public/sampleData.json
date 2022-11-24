@@ -1,0 +1,53 @@
+[
+    {
+        "brandName": "Foton",
+        "model": "1 Ton",
+        "catName": "Small Pick-Up",
+        "capacity": "1000kg",
+        "productImage": "https://i.ibb.co/CJ0tZPy/LCV.png",
+        "purchasePrice": 1000000,
+        "askingPrice": 800000,
+        "milageKM": 150000,
+        "registrationYear": 2300,
+        "condition": "running",
+        "location": "Dhaka",
+        "postTime": 216321321,
+        "advertised": true,
+        "reported": false,
+        "sold": false
+    },
+    {
+        "brandName": "Foton",
+        "model": "1 Ton",
+        "catName": "Medium Pick-Up",
+        "capacity": "1000kg",
+        "productImage": "https://i.ibb.co/CJ0tZPy/LCV.png",
+        "purchasePrice": 1000000,
+        "askingPrice": 800000,
+        "milageKM": 150000,
+        "registrationYear": 2300,
+        "condition": "running",
+        "location": "Dhaka",
+        "postTime": 216321321,
+        "advertised": true,
+        "reported": false,
+        "sold": false
+    },
+    {
+        "brandName": "Foton",
+        "model": "1 Ton",
+        "catName": "Mini Truck",
+        "capacity": "1000kg",
+        "productImage": "https://i.ibb.co/CJ0tZPy/LCV.png",
+        "purchasePrice": 1000000,
+        "askingPrice": 800000,
+        "milageKM": 150000,
+        "registrationYear": 2300,
+        "condition": "running",
+        "location": "Dhaka",
+        "postTime": 216321321,
+        "advertised": true,
+        "reported": false,
+        "sold": false
+    }
+]

@@ -1,17 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import PrimaryButton from "../../../Components/Button/PrimaryButton";
 
-const Category = () => {
+const Category = ({ truckCategory }) => {
+    const { _id, catName, catDescription, catImage } = truckCategory;
     return (
-        <div className="card card-compact w-96 bg-base-100 shadow-xl">
+        <div className="card card-compact shadow-2xl">
             <figure>
-                <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
+                <img className="p-4" src={catImage} alt="truck" />
             </figure>
-            <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Buy Now</button>
-                </div>
+            <div className="card-body text-center">
+                <h2 className="card-title justify-center text-2xl font-bold">{catName}</h2>
+                <p>{catDescription}</p>
+                <Link to={`/truck-category/${catName}`}>
+                    <PrimaryButton classes="w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-[#23292E] hover:text-white text-gray-100">
+                        Show all {catName}
+                    </PrimaryButton>
+                </Link>
             </div>
         </div>
     );

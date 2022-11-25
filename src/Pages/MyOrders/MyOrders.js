@@ -1,10 +1,22 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const MyOrders = () => {
-    const bookings = [];
-    const doctor = {};
+    const { user } = useContext(AuthContext);
+
+    const { data: bookings = [] } = useQuery({
+        queryKey: ["bookings", user?.email],
+        queryFn: async () => {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/bookings/${user?.email}`, {});
+            const data = await res.json();
+            console.log(data);
+            return data;
+        },
+    });
+
     return (
         <div>
             <SectionHeader>My Orders List</SectionHeader>
@@ -27,24 +39,20 @@ const MyOrders = () => {
                                 <tr key={booking._id} className="hover">
                                     <th>{index + 1}</th>
                                     <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={doctor?.image} alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <img className="w-24 shadow-xl rounded-xl" src={booking?.productImage} alt="" />
                                     </td>
-                                    <td>{booking.treatment}</td>
-                                    <td>{booking.appointmentDate}</td>
-                                    <td>{booking.slot}</td>
+                                    <td>{booking.brandName}</td>
+                                    <td>{booking.model}</td>
+                                    <td>{parseInt(booking.askingPrice).toLocaleString()}</td>
                                     <td>
-                                        {booking.price && !booking.paid && (
+                                        {booking.askingPrice && !booking.paid && (
                                             <Link to={`/dashboard/payment/${booking._id}`}>
                                                 <button className="btn btn-primary btn-sm">Pay</button>
                                             </Link>
                                         )}
-                                        {booking.price && booking.paid && <span className="text-green-500">Paid</span>}
+                                        {booking.askingPrice && booking.paid && (
+                                            <span className="text-green-500">Paid</span>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

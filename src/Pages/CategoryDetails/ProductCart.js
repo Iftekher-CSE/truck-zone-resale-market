@@ -1,7 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { GiWeight, GiTruck, GiRoad } from "react-icons/gi";
 import { GrCalendar, GrCurrency, GrMap } from "react-icons/gr";
 import PrimaryButton from "../../Components/Button/PrimaryButton";
+import { FcApproval } from "react-icons/fc";
+
 const ProductCart = ({ truck }) => {
     const {
         brandName,
@@ -16,9 +19,24 @@ const ProductCart = ({ truck }) => {
         condition,
         location,
         postTime,
+        sellerEmail,
         advertised,
         reported,
     } = truck;
+
+    // console.log(sellerEmail);
+
+    // get user data form db
+    const { data: user = [] } = useQuery({
+        queryKey: [],
+        queryFn: async () => {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/user/${truck?.sellerEmail}`);
+            const data = await res.json();
+            console.log(data);
+            return data;
+        },
+    });
+
     return (
         <div className="card bg-base-100 shadow-xl">
             <figure>
@@ -26,10 +44,12 @@ const ProductCart = ({ truck }) => {
             </figure>
             <div className="card-body p-4">
                 <h2 className="card-title flex justify-between">
-                    <span>
-                        {brandName} {model}
+                    <span className="font-bold">
+                        {brandName} - {model}
                     </span>
-                    <div className="badge badge-warning">{parseInt(askingPrice).toLocaleString()} Tk</div>
+                    <div className="badge badge-warning text-lg font-bold">
+                        {parseInt(askingPrice).toLocaleString()} Tk
+                    </div>
                 </h2>
                 <div className="card-actions justify-around">
                     <div className="flex w-full">
@@ -80,8 +100,10 @@ const ProductCart = ({ truck }) => {
                 </div>
                 {/* seller name and verification badge */}
                 <h3 className="text-2xl">
-                    Seller Name
-                    <span className="badge badge-md">NEW</span>
+                    {user.displayName}
+                    <span className="badge badge-ghost">
+                        {user?.sellerVerified && <FcApproval className="w-8 h-8"></FcApproval>}
+                    </span>
                 </h3>
             </div>
             <div>

@@ -1,13 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../../Components/Button/PrimaryButton";
+import SectionHeader from "../../../Components/SectionHeader/SectionHeader";
 import SmallSpinner from "../../../Components/Spinner/SmallSpinner";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const AddAProduct = () => {
     const [loading, setLoading] = useState(false);
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const {
         register,
@@ -42,8 +45,9 @@ const AddAProduct = () => {
                 if (imageData.success) {
                     // console.log(imageData.data.display_url);
                     const postTime = Date.now();
+                    const sellerEmail = user.email;
                     const productImage = imageData.data.display_url;
-                    const postDetails = { ...data, postTime, productImage };
+                    const postDetails = { ...data, postTime, productImage, sellerEmail };
                     console.log(postDetails);
 
                     // save product post info to database
@@ -69,8 +73,8 @@ const AddAProduct = () => {
 
     return (
         <div>
-            <h2>Add A Product to Sell</h2>
-            <form onSubmit={handleSubmit(handelAProduct)}>
+            <SectionHeader>Add A Product to Sell</SectionHeader>
+            <form className=" my-5 mx-20 border border-yellow-500 rounded-xl" onSubmit={handleSubmit(handelAProduct)}>
                 <div className="card-body">
                     {/* name */}
                     <div className="form-control">

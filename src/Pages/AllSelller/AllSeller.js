@@ -32,6 +32,21 @@ const AllSeller = () => {
             });
     };
 
+    // make admin
+    const handelMakeAdmin = user => {
+        fetch(`${process.env.REACT_APP_API_URL}/users/make-admin/${user.email}`, {
+            method: "PUT",
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount) {
+                    toast.success("Admin added successful");
+                    refetch();
+                }
+            });
+    };
+
     const handelVerifySeller = user => {
         fetch(`${process.env.REACT_APP_API_URL}/user/admin/verify/${user.email}`, {
             method: "PUT",
@@ -69,7 +84,12 @@ const AllSeller = () => {
                             <td>{user.displayName}</td>
                             <td>{user.email}</td>
                             <td>
-                                <PrimaryButton classes="px-2 py-1">Make Admin</PrimaryButton>
+                                <PrimaryButton
+                                    handler={() => handelMakeAdmin(user)}
+                                    classes={`px-2 py-1 ${user?.admin && "btn-disabled bg-green-500"}`}
+                                >
+                                    {user?.admin ? "Admin" : "Make Admin"}
+                                </PrimaryButton>
                             </td>
                             <td>
                                 <label
@@ -83,7 +103,7 @@ const AllSeller = () => {
                             <td>
                                 <PrimaryButton
                                     handler={() => handelVerifySeller(user)}
-                                    classes={`px-2 py-1 bg-blue-600 text-white ${
+                                    classes={`px-2 py-1 bg-blue-400 text-white ${
                                         user?.sellerVerified && "btn-disabled"
                                     }`}
                                 >

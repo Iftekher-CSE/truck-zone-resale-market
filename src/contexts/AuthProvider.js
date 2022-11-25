@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email);
     };
 
-    // get currently loggined user
+    // get currently logged in user
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
@@ -73,6 +73,11 @@ const AuthProvider = ({ children }) => {
             unsubscribe();
         };
     }, []);
+
+    // delete user
+    // const deleteUser = (uid) => {
+    //     return .deleteUser(uid);
+    // };
 
     const authInfo = {
         user,

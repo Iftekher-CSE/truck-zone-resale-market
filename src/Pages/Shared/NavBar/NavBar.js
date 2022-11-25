@@ -98,7 +98,9 @@ const NavBar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <a>Settings</a>
+                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/all-seller">
+                                    All Seller
+                                </Link>
                             </li>
                             <li>
                                 <a>Logout</a>

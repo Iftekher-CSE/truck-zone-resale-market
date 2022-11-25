@@ -9,6 +9,7 @@ import AddAProduct from "../Pages/Dashboard/AddAProduct/AddAProduct";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import MyOrders from "../Pages/MyOrders/MyOrders";
 import Register from "../Pages/Register/Register";
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: "/all-user",
                 element: <AllUser></AllUser>,
+            },
+            {
+                path: "/my-orders",
+                element: <MyOrders></MyOrders>,
             },
         ],
     },

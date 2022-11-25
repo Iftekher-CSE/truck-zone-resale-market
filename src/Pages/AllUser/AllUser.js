@@ -5,13 +5,13 @@ import PrimaryButton from "../../Components/Button/PrimaryButton";
 import ConfirmModal from "../../Components/ConfirmModal/ConfirmModal";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
 
-const AllSeller = () => {
+const AllUser = () => {
     const [deleteUser, setDeleteUser] = useState(null);
 
     const { data: users = [], refetch } = useQuery({
-        queryKey: ["seller-account"],
+        queryKey: ["user-account"],
         queryFn: async () => {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/allUsers?accountType=seller-account`);
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/allUsers?accountType=user-account`);
             const data = await res.json();
             return data;
         },
@@ -32,25 +32,9 @@ const AllSeller = () => {
             });
     };
 
-    const handelVerifySeller = user => {
-        fetch(`${process.env.REACT_APP_API_URL}/user/admin/verify/${user.email}`, {
-            method: "PUT",
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                if (data.modifiedCount > 0) {
-                    toast.success("Seller Verified");
-                    setDeleteUser(null);
-                    refetch();
-                }
-            });
-    };
-
     return (
         <div className="overflow-x-auto">
-            <SectionHeader>All Seller List</SectionHeader>
-
+            <SectionHeader>All User List</SectionHeader>
             <table className="table w-full">
                 <thead>
                     <tr>
@@ -59,7 +43,6 @@ const AllSeller = () => {
                         <th>Email</th>
                         <th>Admin</th>
                         <th>Delete</th>
-                        <th>Verify</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,16 +63,6 @@ const AllSeller = () => {
                                     Delete
                                 </label>
                             </td>
-                            <td>
-                                <PrimaryButton
-                                    handler={() => handelVerifySeller(user)}
-                                    classes={`px-2 py-1 bg-blue-600 text-white ${
-                                        user?.sellerVerified && "btn-disabled"
-                                    }`}
-                                >
-                                    {user?.sellerVerified ? "Verified" : "Verify Seller"}
-                                </PrimaryButton>
-                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -107,4 +80,4 @@ const AllSeller = () => {
     );
 };
 
-export default AllSeller;
+export default AllUser;

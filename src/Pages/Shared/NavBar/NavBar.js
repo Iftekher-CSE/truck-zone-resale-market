@@ -112,6 +112,11 @@ const NavBar = () => {
                                     My Orders
                                 </Link>
                             </li>
+                            <li>
+                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/my-products">
+                                    My Products
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

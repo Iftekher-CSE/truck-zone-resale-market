@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import PrimaryButton from "../../Components/Button/PrimaryButton";
 import ConfirmModal from "../../Components/ConfirmModal/ConfirmModal";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -37,6 +38,21 @@ const MyProducts = () => {
             });
     };
 
+    // advertised a product
+    const handelAdvertiseProduct = user => {
+        fetch(`${process.env.REACT_APP_API_URL}/allTrucks/advertised/${user._id}`, {
+            method: "PUT",
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                if (data.modifiedCount > 0) {
+                    toast.success("Product Advertised Changed");
+                    refetch();
+                }
+            });
+    };
+
     return (
         <div>
             <SectionHeader>My Products List</SectionHeader>
@@ -53,6 +69,7 @@ const MyProducts = () => {
                                 <th>Price</th>
                                 <th>Advertise</th>
                                 <th>Delete</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,11 +83,12 @@ const MyProducts = () => {
                                     <td>{product.model}</td>
                                     <td>{parseInt(product.askingPrice).toLocaleString()}</td>
                                     <td>
-                                        {product.askingPrice && !product?.sold && (
-                                            <Link to={`/dashboard/payment/${product._id}`}>
-                                                <button className="btn btn-primary btn-sm">Advertise</button>
-                                            </Link>
-                                        )}
+                                        <input
+                                            onClick={() => handelAdvertiseProduct(product)}
+                                            type="checkbox"
+                                            className="toggle toggle-success"
+                                            checked={product?.advertised}
+                                        />
                                     </td>
                                     <td>
                                         <label
@@ -80,6 +98,11 @@ const MyProducts = () => {
                                         >
                                             Delete
                                         </label>{" "}
+                                    </td>
+                                    <td
+                                        className={` font-bold ${product?.sold ? "text-green-500" : "text-yellow-500"}`}
+                                    >
+                                        {product?.sold ? "Sold" : "Available"}
                                     </td>
                                 </tr>
                             ))}

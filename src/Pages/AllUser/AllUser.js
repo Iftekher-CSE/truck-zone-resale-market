@@ -41,7 +41,7 @@ const AllUser = () => {
             .then(data => {
                 console.log(data);
                 if (data.modifiedCount) {
-                    toast.success("Admin added successful");
+                    toast.success("Admin Modification Successful");
                     refetch();
                 }
             });
@@ -67,12 +67,12 @@ const AllUser = () => {
                             <td>{user.displayName}</td>
                             <td>{user.email}</td>
                             <td>
-                                <PrimaryButton
-                                    handler={() => handelMakeAdmin(user)}
-                                    classes={`px-2 py-1 ${user?.admin && "btn-disabled bg-green-500"}`}
-                                >
-                                    {user?.admin ? "Admin" : "Make Admin"}
-                                </PrimaryButton>
+                                <input
+                                    onClick={() => handelMakeAdmin(user)}
+                                    type="checkbox"
+                                    className="toggle toggle-warning"
+                                    checked={user?.admin}
+                                />
                             </td>
                             <td>
                                 <label

@@ -41,7 +41,7 @@ const AllSeller = () => {
             .then(data => {
                 console.log(data);
                 if (data.modifiedCount) {
-                    toast.success("Admin added successful");
+                    toast.success("Admin Modification Successful");
                     refetch();
                 }
             });
@@ -55,7 +55,7 @@ const AllSeller = () => {
             .then(data => {
                 // console.log(data);
                 if (data.modifiedCount > 0) {
-                    toast.success("Seller Verified");
+                    toast.success("Seller Modification Successfull");
                     setDeleteUser(null);
                     refetch();
                 }
@@ -84,12 +84,12 @@ const AllSeller = () => {
                             <td>{user.displayName}</td>
                             <td>{user.email}</td>
                             <td>
-                                <PrimaryButton
-                                    handler={() => handelMakeAdmin(user)}
-                                    classes={`px-2 py-1 ${user?.admin && "btn-disabled bg-green-500"}`}
-                                >
-                                    {user?.admin ? "Admin" : "Make Admin"}
-                                </PrimaryButton>
+                                <input
+                                    onClick={() => handelMakeAdmin(user)}
+                                    type="checkbox"
+                                    className="toggle toggle-warning"
+                                    checked={user?.admin}
+                                />
                             </td>
                             <td>
                                 <label
@@ -101,14 +101,12 @@ const AllSeller = () => {
                                 </label>
                             </td>
                             <td>
-                                <PrimaryButton
-                                    handler={() => handelVerifySeller(user)}
-                                    classes={`px-2 py-1 bg-blue-400 text-white ${
-                                        user?.sellerVerified && "btn-disabled"
-                                    }`}
-                                >
-                                    {user?.sellerVerified ? "Verified" : "Verify Seller"}
-                                </PrimaryButton>
+                                <input
+                                    onClick={() => handelVerifySeller(user)}
+                                    type="checkbox"
+                                    className="toggle toggle-info"
+                                    checked={user?.sellerVerified}
+                                />
                             </td>
                         </tr>
                     ))}

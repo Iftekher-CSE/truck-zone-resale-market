@@ -1,13 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import AdvertisedItem from "./AdvertisedItem/AdvertisedItem";
 import Banner from "./Banner/Banner";
 import Categories from "./Categories/Categories";
 
 const Home = () => {
+    // get all !sold advertised product
+    const { data: advProducts = [] } = useQuery({
+        queryKey: ["allTruck-advertised"],
+        queryFn: async () => {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/allTruck-advertised`);
+            const data = await res.json();
+            console.log(data);
+            return data;
+        },
+    });
     return (
         <div>
             <Banner></Banner>
-            <AdvertisedItem></AdvertisedItem>
+            {advProducts.length > 0 && <AdvertisedItem advProducts={advProducts}></AdvertisedItem>}
             <Categories></Categories>
         </div>
     );

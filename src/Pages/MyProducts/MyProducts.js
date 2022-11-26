@@ -15,7 +15,7 @@ const MyProducts = () => {
     const { data: products = [], refetch } = useQuery({
         queryKey: ["allTrucks", user?.email],
         queryFn: async () => {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/allTrucks/${user?.email}`, {});
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/allTrucks/${user?.email}`);
             const data = await res.json();
             console.log(data);
             return data;

@@ -1,10 +1,16 @@
 import React from "react";
 import SectionHeader from "../../../Components/SectionHeader/SectionHeader";
+import ProductCart from "../../CategoryDetails/ProductCart";
 
-const AdvertisedItem = () => {
+const AdvertisedItem = ({ advProducts }) => {
     return (
         <div>
             <SectionHeader>Advertised Item</SectionHeader>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {advProducts.map(advProduct => (
+                    <ProductCart key={advProduct._id} truck={advProduct}></ProductCart>
+                ))}
+            </div>
         </div>
     );
 };

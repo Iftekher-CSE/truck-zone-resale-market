@@ -95,7 +95,7 @@ const AllSeller = () => {
                                 <label
                                     onClick={() => setDeleteUser(user)}
                                     htmlFor="confirm-modal"
-                                    className="btn bg-red-500 btn-sm"
+                                    className="btn bg-red-400 btn-sm"
                                 >
                                     Delete
                                 </label>

@@ -1,13 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import ConfirmModal from "../../Components/ConfirmModal/ConfirmModal";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
+    const [deleteProduct, setDeleteProduct] = useState(null);
 
-    const { data: bookings = [] } = useQuery({
+    const { data: bookings = [], refetch } = useQuery({
         queryKey: ["bookings", user?.email],
         queryFn: async () => {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/bookings?email=${user?.email}`, {});
@@ -16,6 +19,22 @@ const MyOrders = () => {
             return data;
         },
     });
+
+    // delete a product from order list if not paid
+    const deleteHandler = booking => {
+        fetch(`${process.env.REACT_APP_API_URL}/bookings/${booking._id}`, {
+            method: "DELETE",
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                if (data.deletedCount > 0) {
+                    toast.success("Deleted Confirmed");
+                    setDeleteProduct(null);
+                    refetch();
+                }
+            });
+    };
 
     return (
         <div>
@@ -31,7 +50,9 @@ const MyOrders = () => {
                                 <th>Brand</th>
                                 <th>Model</th>
                                 <th>Price</th>
+                                <th>Delete</th>
                                 <th>Payment</th>
+                                <th>Note</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,6 +66,16 @@ const MyOrders = () => {
                                     <td>{booking.model}</td>
                                     <td>{parseInt(booking.askingPrice).toLocaleString()}</td>
                                     <td>
+                                        <label
+                                            onClick={() => setDeleteProduct(booking)}
+                                            htmlFor="confirm-modal"
+                                            className="btn bg-red-500 btn-sm"
+                                            disabled={booking.sold}
+                                        >
+                                            Delete
+                                        </label>{" "}
+                                    </td>
+                                    <td>
                                         {booking.askingPrice && !booking.sold && (
                                             <Link to={`/payment/${booking._id}`}>
                                                 <button className="btn btn-primary btn-sm">Pay</button>
@@ -53,20 +84,28 @@ const MyOrders = () => {
                                         {booking.askingPrice && booking.sold && (
                                             <span className="text-green-500 font-bold">Paid</span>
                                         )}
-                                        <br />
+                                    </td>
+                                    <td>
+                                        {booking.askingPrice < 1000000
+                                            ? ""
+                                            : "You cannot pay 10,00,000 or more in a single transaction"}
                                         {booking.askingPrice && booking.sold && `TranID: ${booking.transactionId}`}
-
-                                        {booking.askingPrice < 1000000 ? "" : "***"}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <p className="text-right text-sm text-red-400">
-                        *** You cannot pay 10,00,000 or more in a single transaction.
-                    </p>
                 </div>
             </div>
+            {deleteProduct && (
+                <ConfirmModal
+                    modalData={deleteProduct}
+                    title={`Delete A Product from Order List`}
+                    message={`Are you sure wants to delete ${deleteProduct?.model} product order List? No issue you can add it later.`}
+                    successAction={deleteHandler}
+                    successBtnName={"Delete"}
+                ></ConfirmModal>
+            )}
         </div>
     );
 };

@@ -18,6 +18,7 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
         const productImage = bookingProduct.productImage;
         const sellerEmail = bookingProduct.sellerEmail;
         const booking = {
+            productId: bookingProduct._id,
             custPhone,
             meetLocation,
             custEmail,

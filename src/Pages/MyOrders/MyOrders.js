@@ -10,7 +10,7 @@ const MyOrders = () => {
     const { data: bookings = [] } = useQuery({
         queryKey: ["bookings", user?.email],
         queryFn: async () => {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/bookings/${user?.email}`, {});
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/bookings?email=${user?.email}`, {});
             const data = await res.json();
             console.log(data);
             return data;
@@ -45,19 +45,26 @@ const MyOrders = () => {
                                     <td>{booking.model}</td>
                                     <td>{parseInt(booking.askingPrice).toLocaleString()}</td>
                                     <td>
-                                        {booking.askingPrice && !booking.paid && (
-                                            <Link to={`/dashboard/payment/${booking._id}`}>
+                                        {booking.askingPrice && !booking.sold && (
+                                            <Link to={`/payment/${booking._id}`}>
                                                 <button className="btn btn-primary btn-sm">Pay</button>
                                             </Link>
                                         )}
-                                        {booking.askingPrice && booking.paid && (
-                                            <span className="text-green-500">Paid</span>
+                                        {booking.askingPrice && booking.sold && (
+                                            <span className="text-green-500 font-bold">Paid</span>
                                         )}
+                                        <br />
+                                        {booking.askingPrice && booking.sold && `TranID: ${booking.transactionId}`}
+
+                                        {booking.askingPrice < 1000000 ? "" : "***"}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    <p className="text-right text-sm text-red-400">
+                        *** You cannot pay 10,00,000 or more in a single transaction.
+                    </p>
                 </div>
             </div>
         </div>

@@ -7,8 +7,9 @@ import { FcApproval } from "react-icons/fc";
 import { AuthContext } from "../../contexts/AuthProvider";
 import BookingModal from "../../Components/BookingModal/BookingModal";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
-const ProductCart = ({ truck }) => {
+const ProductCart = ({ truck, prodRefetch }) => {
     const {
         brandName,
         model,
@@ -20,7 +21,7 @@ const ProductCart = ({ truck }) => {
         milageKM,
         registrationYear,
         condition,
-        location,
+        location: meetingLocation,
         postTime,
         sellerEmail,
         advertised,
@@ -32,7 +33,7 @@ const ProductCart = ({ truck }) => {
     // console.log(sellerEmail);
 
     // get user data form db
-    const { data: seller = [], refetch } = useQuery({
+    const { data: seller = [] } = useQuery({
         queryKey: [],
         queryFn: async () => {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/user/${truck?.sellerEmail}`);
@@ -52,7 +53,8 @@ const ProductCart = ({ truck }) => {
                 // console.log(data);
                 if (data.modifiedCount > 0) {
                     toast.success("Product Reported state Changed");
-                    refetch();
+                    prodRefetch();
+                    // window.location.reload(true);
                 }
             });
     };
@@ -88,7 +90,7 @@ const ProductCart = ({ truck }) => {
                         <div className="divider divider-horizontal m-0"></div>
                         <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
                             <GrMap></GrMap>
-                            {location}
+                            {meetingLocation}
                         </div>
                         <div className="divider divider-horizontal m-0"></div>
                         <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
@@ -151,7 +153,7 @@ const ProductCart = ({ truck }) => {
                 {/* rport to admin */}
                 <button
                     onClick={() => handelReportProduct(truck)}
-                    className="btn btn-sm gap-2 "
+                    className={`btn btn-sm gap-2 ${reported ? "btn-error" : "btn-outline"}`}
                     title="Report to admin"
                 >
                     <svg

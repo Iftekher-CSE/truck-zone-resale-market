@@ -11,6 +11,7 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import MyOrders from "../Pages/MyOrders/MyOrders";
 import MyProducts from "../Pages/MyProducts/MyProducts";
+import Payment from "../Pages/Payment/Payment";
 import Register from "../Pages/Register/Register";
 import ReportedProducts from "../Pages/ReportedProducts/ReportedProducts";
 
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
             {
                 path: "/reported-products",
                 element: <ReportedProducts></ReportedProducts>,
+            },
+            {
+                path: "/payment/:id",
+                loader: ({ params }) => fetch(`${process.env.REACT_APP_API_URL}/bookings/${params.id}`),
+                element: <Payment></Payment>,
             },
         ],
     },

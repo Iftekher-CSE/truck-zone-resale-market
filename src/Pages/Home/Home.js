@@ -6,7 +6,7 @@ import Categories from "./Categories/Categories";
 
 const Home = () => {
     // get all !sold advertised product
-    const { data: advProducts = [] } = useQuery({
+    const { data: advProducts = [], refetch } = useQuery({
         queryKey: ["allTruck-advertised"],
         queryFn: async () => {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/allTruck-advertised`);
@@ -18,7 +18,7 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
-            {advProducts.length > 0 && <AdvertisedItem advProducts={advProducts}></AdvertisedItem>}
+            {advProducts.length > 0 && <AdvertisedItem advProducts={advProducts} refetch={refetch}></AdvertisedItem>}
             <Categories></Categories>
         </div>
     );

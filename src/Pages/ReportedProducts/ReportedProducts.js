@@ -3,17 +3,15 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmModal from "../../Components/ConfirmModal/ConfirmModal";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
-import { AuthContext } from "../../contexts/AuthProvider";
 
-const MyProducts = () => {
-    const { user } = useContext(AuthContext);
+const ReportedProducts = () => {
     const [deleteProduct, setDeleteProduct] = useState(null);
 
     // get all product of this user
     const { data: products = [], refetch } = useQuery({
-        queryKey: ["allTrucks", user?.email],
+        queryKey: ["allTruck-reported"],
         queryFn: async () => {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/allTrucks/${user?.email}`);
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/allTruck-reported`);
             const data = await res.json();
             console.log(data);
             return data;
@@ -36,24 +34,9 @@ const MyProducts = () => {
             });
     };
 
-    // advertised a product
-    const handelAdvertiseProduct = user => {
-        fetch(`${process.env.REACT_APP_API_URL}/allTrucks/advertised/${user._id}`, {
-            method: "PUT",
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                if (data.modifiedCount > 0) {
-                    toast.success("Product Advertised Changed");
-                    refetch();
-                }
-            });
-    };
-
     return (
         <div>
-            <SectionHeader>My Products List</SectionHeader>
+            <SectionHeader>All Reported Product List</SectionHeader>
 
             <div className="m-10">
                 <div className="overflow-x-auto">
@@ -65,7 +48,7 @@ const MyProducts = () => {
                                 <th>Brand</th>
                                 <th>Model</th>
                                 <th>Price</th>
-                                <th>Advertise</th>
+                                <th>Seller Email</th>
                                 <th>Delete</th>
                                 <th>Status</th>
                             </tr>
@@ -80,14 +63,7 @@ const MyProducts = () => {
                                     <td>{product.brandName}</td>
                                     <td>{product.model}</td>
                                     <td>{parseInt(product.askingPrice).toLocaleString()}</td>
-                                    <td>
-                                        <input
-                                            onClick={() => handelAdvertiseProduct(product)}
-                                            type="checkbox"
-                                            className="toggle toggle-success"
-                                            checked={product?.advertised}
-                                        />
-                                    </td>
+                                    <td>{product.sellerEmail}</td>
                                     <td>
                                         <label
                                             onClick={() => setDeleteProduct(product)}
@@ -121,4 +97,4 @@ const MyProducts = () => {
     );
 };
 
-export default MyProducts;
+export default ReportedProducts;

@@ -6,6 +6,7 @@ import PrimaryButton from "../../Components/Button/PrimaryButton";
 import { FcApproval } from "react-icons/fc";
 import { AuthContext } from "../../contexts/AuthProvider";
 import BookingModal from "../../Components/BookingModal/BookingModal";
+import toast from "react-hot-toast";
 
 const ProductCart = ({ truck }) => {
     const {
@@ -31,7 +32,7 @@ const ProductCart = ({ truck }) => {
     // console.log(sellerEmail);
 
     // get user data form db
-    const { data: seller = [] } = useQuery({
+    const { data: seller = [], refetch } = useQuery({
         queryKey: [],
         queryFn: async () => {
             const res = await fetch(`${process.env.REACT_APP_API_URL}/user/${truck?.sellerEmail}`);
@@ -40,6 +41,21 @@ const ProductCart = ({ truck }) => {
             return data;
         },
     });
+
+    // report and !report a product
+    const handelReportProduct = product => {
+        fetch(`${process.env.REACT_APP_API_URL}/allTrucks/reported/${truck._id}`, {
+            method: "PUT",
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                if (data.modifiedCount > 0) {
+                    toast.success("Product Reported state Changed");
+                    refetch();
+                }
+            });
+    };
 
     return (
         <div className="card bg-base-100 shadow-xl">
@@ -109,12 +125,13 @@ const ProductCart = ({ truck }) => {
                 {/* seller name and verification badge */}
                 <h3 className="text-2xl">
                     {seller.displayName}
-                    <span className="badge badge-ghost">
+                    <span className="badge badge-ghost bg-white border-0">
                         {seller?.sellerVerified && <FcApproval className="w-8 h-8"></FcApproval>}
                     </span>
                 </h3>
             </div>
             <div className="flex justify-around items-center bg-gray-200 py-2">
+                {/* add to favorite */}
                 <button className="btn btn-sm gap-2 " title="Add to Favorite">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +148,12 @@ const ProductCart = ({ truck }) => {
                         />
                     </svg>
                 </button>
-                <button className="btn btn-sm gap-2 " title="Report to admin">
+                {/* rport to admin */}
+                <button
+                    onClick={() => handelReportProduct(truck)}
+                    className="btn btn-sm gap-2 "
+                    title="Report to admin"
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"

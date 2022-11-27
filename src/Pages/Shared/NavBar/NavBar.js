@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import "./NavBar.css";
+import brandImage from "../../../Assets/truckzone_tzlogo.png";
 
 const NavBar = () => {
     const { user, logout } = useContext(AuthContext);
@@ -66,7 +67,7 @@ const NavBar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                <img className="w-4/12" src={brandImage} alt="" />{" "}
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">{navItems}</ul>
@@ -115,6 +116,11 @@ const NavBar = () => {
                             <li>
                                 <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/my-products">
                                     My Products
+                                </Link>
+                            </li>
+                            <li>
+                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/reported-products">
+                                    Reported Products
                                 </Link>
                             </li>
                         </ul>

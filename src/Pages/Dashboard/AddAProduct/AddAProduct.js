@@ -63,7 +63,7 @@ const AddAProduct = () => {
                             console.log(result);
                             if (result.acknowledged) {
                                 toast.success(`${data.model} posted for sales!`);
-                                navigate("/");
+                                navigate("/my-products");
                             }
                         });
                 }

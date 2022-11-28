@@ -3,6 +3,7 @@ import React from "react";
 import AdvertisedItem from "./AdvertisedItem/AdvertisedItem";
 import Banner from "./Banner/Banner";
 import Categories from "./Categories/Categories";
+import HomeSection from "./HomeSection/HomeSection";
 
 const Home = () => {
     // get all !sold advertised product
@@ -20,6 +21,7 @@ const Home = () => {
             <Banner></Banner>
             {advProducts.length > 0 && <AdvertisedItem advProducts={advProducts} refetch={refetch}></AdvertisedItem>}
             <Categories></Categories>
+            <HomeSection></HomeSection>
         </div>
     );
 };

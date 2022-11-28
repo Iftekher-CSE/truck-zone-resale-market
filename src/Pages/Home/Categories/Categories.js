@@ -14,7 +14,7 @@ const Categories = () => {
     // console.log(truckCategories);
 
     return (
-        <section className="my-20">
+        <section className="my-40">
             <SectionHeader>All Truck Categories</SectionHeader>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 p-10">
                 {truckCategories.map(truckCategory => (

@@ -7,7 +7,7 @@ import { FcApproval } from "react-icons/fc";
 import { AuthContext } from "../../contexts/AuthProvider";
 import BookingModal from "../../Components/BookingModal/BookingModal";
 import toast from "react-hot-toast";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ProductCart = ({ truck, prodRefetch }) => {
     const {
@@ -29,6 +29,7 @@ const ProductCart = ({ truck, prodRefetch }) => {
     } = truck;
 
     const [bookingProduct, setBookingProduct] = useState("");
+    const { user } = useContext(AuthContext);
 
     // console.log(sellerEmail);
 
@@ -166,13 +167,30 @@ const ProductCart = ({ truck, prodRefetch }) => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <label
+                {/* check user before opening modal */}
+                {user?.uid ? (
+                    <label
+                        onClick={() => setBookingProduct(truck)}
+                        htmlFor="product-booking-modal"
+                        className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-md"
+                    >
+                        Book Now
+                    </label>
+                ) : (
+                    <Link to="/login">
+                        <label className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-md">
+                            Book Now
+                        </label>
+                    </Link>
+                )}
+
+                {/* <label
                     onClick={() => setBookingProduct(truck)}
                     htmlFor="product-booking-modal"
                     className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-md"
                 >
                     Book Now
-                </label>
+                </label> */}
             </div>
             {bookingProduct && (
                 <BookingModal bookingProduct={bookingProduct} setBookingProduct={setBookingProduct}></BookingModal>

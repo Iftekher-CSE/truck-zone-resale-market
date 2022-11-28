@@ -19,8 +19,21 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+
+    // get currently logged in user
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            console.log(currentUser);
+            setUser(currentUser);
+            setLoading(false);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [user]);
 
     //Register & Create User
     const createUser = (email, password) => {
@@ -61,18 +74,6 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return sendPasswordResetEmail(auth, email);
     };
-
-    // get currently logged in user
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
-            setLoading(false);
-        });
-
-        return () => {
-            unsubscribe();
-        };
-    }, []);
 
     // delete user
     // const deleteUser = (uid) => {

@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Spinner = () => {
+    const { user } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (!user) {
+                navigate("/");
+            }
+        }, 5000);
+    }, [user, navigate]);
+
     return (
         <div className="flex justify-center items-center h-full">
             <p className="text-7xl font-thin">L</p>

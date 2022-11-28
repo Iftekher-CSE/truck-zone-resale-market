@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import AllSeller from "../Pages/AllSelller/AllSeller";
 import AllUser from "../Pages/AllUser/AllUser";
@@ -14,6 +14,9 @@ import MyProducts from "../Pages/MyProducts/MyProducts";
 import Payment from "../Pages/Payment/Payment";
 import Register from "../Pages/Register/Register";
 import ReportedProducts from "../Pages/ReportedProducts/ReportedProducts";
+import AdminRoute from "./AdminRout";
+import BuyerRoute from "./BuyerRoute";
+import SellerRoute from "./SellerRoute";
 
 const router = createBrowserRouter([
     {
@@ -47,32 +50,60 @@ const router = createBrowserRouter([
             },
             {
                 path: "/add-a-product",
-                element: <AddAProduct></AddAProduct>,
+                element: (
+                    <SellerRoute>
+                        <AddAProduct></AddAProduct>
+                    </SellerRoute>
+                ),
             },
             {
                 path: "/all-seller",
-                element: <AllSeller></AllSeller>,
+                element: (
+                    <AdminRoute>
+                        <AllSeller></AllSeller>
+                    </AdminRoute>
+                ),
             },
             {
                 path: "/all-user",
-                element: <AllUser></AllUser>,
+                element: (
+                    <AdminRoute>
+                        <AllUser></AllUser>
+                    </AdminRoute>
+                ),
             },
             {
                 path: "/my-orders",
-                element: <MyOrders></MyOrders>,
+                element: (
+                    <BuyerRoute>
+                        <MyOrders></MyOrders>
+                    </BuyerRoute>
+                ),
             },
             {
                 path: "/my-products",
-                element: <MyProducts></MyProducts>,
+                element: (
+                    <SellerRoute>
+                        <MyProducts></MyProducts>
+                    </SellerRoute>
+                ),
             },
             {
                 path: "/reported-products",
-                element: <ReportedProducts></ReportedProducts>,
+                element: (
+                    <AdminRoute>
+                        <ReportedProducts></ReportedProducts>
+                    </AdminRoute>
+                ),
             },
             {
                 path: "/payment/:id",
                 loader: ({ params }) => fetch(`${process.env.REACT_APP_API_URL}/bookings/${params.id}`),
-                element: <Payment></Payment>,
+                element: (
+                    <BuyerRoute>
+                        <Payment></Payment>
+                    </BuyerRoute>
+                ),
             },
         ],
     },

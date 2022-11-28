@@ -11,10 +11,10 @@ import { userJWT } from "../../api/userJWT";
 const Login = () => {
     const { signIn, signInWithGoogle, setUser, loading, setLoading, resetPassword } = useContext(AuthContext);
     const [email, setEmail] = useState("");
-    const navigate = useNavigate();
     const location = useLocation();
+    const navigate = useNavigate();
 
-    const form = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/";
 
     const handelLogin = event => {
         event.preventDefault();
@@ -27,7 +27,8 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 userJWT(user);
-                navigate(form, { replace: true });
+                // navigate("/all-user");
+                navigate(from, { replace: true });
             })
             .catch(err => {
                 toast.error(err.message);
@@ -44,7 +45,7 @@ const Login = () => {
                 userJWT(user, "user-account");
                 toast.success("You have Logged In successfully");
                 setLoading(false);
-                navigate("/");
+                navigate(from, { replace: true });
             })
             .catch(err => console.error(err));
     };

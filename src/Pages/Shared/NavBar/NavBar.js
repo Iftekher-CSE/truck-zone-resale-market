@@ -3,9 +3,15 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import "./NavBar.css";
 import brandImage from "../../../Assets/truckzone_tzlogo.png";
+import useAdmin from "../../../hooks/useAdmin";
+import useAccountType from "../../../hooks/useAccountType";
 
 const NavBar = () => {
     const { user, logout } = useContext(AuthContext);
+
+    const [isAdmin] = useAdmin(user?.email);
+    const [accountType] = useAccountType(user?.email);
+
     const navItems = (
         <>
             <li>
@@ -93,36 +99,49 @@ const NavBar = () => {
                             tabIndex={0}
                             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                         >
-                            <li>
-                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/add-a-product">
-                                    Add A Product
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/all-seller">
-                                    All Seller
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/all-user">
-                                    All User
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/my-orders">
-                                    My Orders
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/my-products">
-                                    My Products
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/reported-products">
-                                    Reported Products
-                                </Link>
-                            </li>
+                            {isAdmin && (
+                                <>
+                                    <li>
+                                        <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/all-seller">
+                                            All Seller
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/all-user">
+                                            All User
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/reported-products">
+                                            Reported Products
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+                            {accountType === "seller-account" && (
+                                <>
+                                    <li>
+                                        <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/add-a-product">
+                                            Add A Product
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/my-products">
+                                            My Products
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+
+                            {accountType === "user-account" && (
+                                <>
+                                    <li>
+                                        <Link className="px-4 py-4 mx-2 rounded-b-2xl" to="/my-orders">
+                                            My Orders
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </div>
                 </div>

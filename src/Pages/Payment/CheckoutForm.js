@@ -105,7 +105,7 @@ const CheckoutForm = ({ booking }) => {
     };
 
     return (
-        <form className="w-full border border-yellow-500 shadow-xl py-20 px-10 rounded-2xl" onSubmit={handleSubmit}>
+        <form className="w-full border border-yellow-500 shadow-xl py-20 px-10 rounded-lg" onSubmit={handleSubmit}>
             <CardElement
                 className="p-4"
                 options={{

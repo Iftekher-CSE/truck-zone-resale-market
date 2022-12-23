@@ -61,9 +61,9 @@ const ProductCart = ({ truck, prodRefetch }) => {
     };
 
     return (
-        <div className="card bg-base-100 shadow-xl">
+        <div className="card bg-base-100 shadow-xl rounded-xl">
             <figure>
-                <img src={productImage} alt="Shoes" />
+                <img className="h-56" src={productImage} alt="Shoes" />
             </figure>
             <div className="card-body p-4">
                 {/* name and price */}
@@ -133,7 +133,7 @@ const ProductCart = ({ truck, prodRefetch }) => {
                     </span>
                 </h3>
             </div>
-            <div className="flex justify-around items-center bg-gray-200 py-2">
+            <div className="flex justify-around items-center bg-gray-200 py-2  rounded-b-md">
                 {/* add to favorite */}
                 <button className="btn btn-sm gap-2 " title="Add to Favorite">
                     <svg
@@ -172,13 +172,13 @@ const ProductCart = ({ truck, prodRefetch }) => {
                     <label
                         onClick={() => setBookingProduct(truck)}
                         htmlFor="product-booking-modal"
-                        className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-md"
+                        className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-xl"
                     >
                         Book Now
                     </label>
                 ) : (
                     <Link to="/login">
-                        <label className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-md">
+                        <label className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-xl">
                             Book Now
                         </label>
                     </Link>
@@ -187,7 +187,7 @@ const ProductCart = ({ truck, prodRefetch }) => {
                 {/* <label
                     onClick={() => setBookingProduct(truck)}
                     htmlFor="product-booking-modal"
-                    className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-md"
+                    className="btn bg-[#FBE122] text-[#23292E] hover:bg-[#23292E] hover:text-[#FBE122] px-8 py-3 font-semibold rounded-xl"
                 >
                     Book Now
                 </label> */}

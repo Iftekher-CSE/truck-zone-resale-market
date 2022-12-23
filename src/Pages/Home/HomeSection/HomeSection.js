@@ -9,7 +9,7 @@ import brand6 from "../../../Assets/6.webp";
 
 const HomeSection = () => {
     return (
-        <div className="my-40">
+        <div className="my-20">
             <SectionHeader>Popular Brand working with Us</SectionHeader>
             <div className="carousel carousel-center p-4 space-x-4 bg-yellow-300 rounded-box mt-10">
                 <div className="carousel-item">

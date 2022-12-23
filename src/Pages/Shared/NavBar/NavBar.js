@@ -47,7 +47,7 @@ const NavBar = () => {
         </>
     );
     return (
-        <div className="navbar bg-base-100 pt-0 min-h-0">
+        <div className="navbar bg-base-100 pt-0 min-h-0 mb-6">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -68,19 +68,19 @@ const NavBar = () => {
                     </label>
                     <ul
                         tabIndex={0}
-                        className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                        className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-xl"
                     >
                         {navItems}
                     </ul>
                 </div>
-                <img className="w-4/12" src={brandImage} alt="" />{" "}
+                <Link to='/home'><img className="w-5/12" src={brandImage} alt="" /></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal p-0">{navItems}</ul>
+                <ul className="menu menu-horizontal p-0 text-xl">{navItems}</ul>
             </div>
             <div className="navbar-end">
                 <div className="flex-none">
-                    <div className="dropdown dropdown-end">
+                    <div className="dropdown dropdown-end text-xl">
                         {user?.uid && (
                             <>
                                 <div className=" flex flex-row items-center">
@@ -97,7 +97,7 @@ const NavBar = () => {
                         )}
                         <ul
                             tabIndex={0}
-                            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-xl"
                         >
                             {isAdmin && (
                                 <>

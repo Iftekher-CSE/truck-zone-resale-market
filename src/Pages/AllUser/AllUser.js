@@ -48,9 +48,9 @@ const AllUser = () => {
     };
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto my-10">
             <SectionHeader>All User List</SectionHeader>
-            <table className="table w-full">
+            <table className="table w-full  mt-10">
                 <thead>
                     <tr>
                         <th>Sl</th>

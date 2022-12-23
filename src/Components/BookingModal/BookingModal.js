@@ -60,7 +60,7 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
                     </label>
                     <h3 className="text-xl font-bold">
                         Booking for:
-                        <span className="bg-[#FBE122] text-[#23292E] rounded-md px-2">
+                        <span className="bg-[#FBE122] text-[#23292E] rounded-xl px-2">
                             {bookingProduct?.brandName} {bookingProduct?.model}
                         </span>
                     </h3>

@@ -84,7 +84,7 @@ const Register = () => {
 
     return (
         <div className="flex justify-center items-center pt-8">
-            <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
+            <div className="flex flex-col max-w-md p-6 rounded-xl sm:p-10 bg-gray-100 text-gray-900">
                 <div className="mb-8 text-center">
                     <h1 className="my-3 text-4xl font-bold">Register</h1>
                 </div>
@@ -105,7 +105,7 @@ const Register = () => {
                                 id="name"
                                 required
                                 placeholder="Enter Your Name Here"
-                                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#FBE122] bg-gray-200 text-gray-900"
+                                className="w-full px-3 py-2 border rounded-xl border-gray-300 focus:outline-[#FBE122] bg-gray-200 text-gray-900"
                                 data-temp-mail-org="0"
                             />
                         </div>
@@ -151,7 +151,7 @@ const Register = () => {
                                 name="email"
                                 id="email"
                                 placeholder="Enter Your Email Here"
-                                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#FBE122] bg-gray-200 text-[#23292E]"
+                                className="w-full px-3 py-2 border rounded-xl border-gray-300 focus:outline-[#FBE122] bg-gray-200 text-[#23292E]"
                                 data-temp-mail-org="0"
                             />
                         </div>
@@ -167,7 +167,7 @@ const Register = () => {
                                 id="password"
                                 required
                                 placeholder="*******"
-                                className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-200 focus:outline-[#FBE122] text-[#23292E]"
+                                className="w-full px-3 py-2 border rounded-xl border-gray-300 bg-gray-200 focus:outline-[#FBE122] text-[#23292E]"
                             />
                         </div>
                     </div>

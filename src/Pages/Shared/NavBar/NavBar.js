@@ -26,9 +26,11 @@ const NavBar = () => {
             </li>
             {user?.uid ? (
                 <li>
-                    <button onClick={logout} className="px-4 py-4 mx-2 rounded-b-2xl">
-                        Log Out
-                    </button>
+                    <Link to="/">
+                        <button onClick={logout} className="px-4 py-4 mx-2 rounded-b-2xl">
+                            Log Out
+                        </button>
+                    </Link>
                 </li>
             ) : (
                 <>
@@ -73,7 +75,9 @@ const NavBar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <Link to='/home'><img className="w-5/12" src={brandImage} alt="" /></Link>
+                <Link to="/home">
+                    <img className="w-5/12" src={brandImage} alt="" />
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0 text-xl">{navItems}</ul>

@@ -12,6 +12,8 @@ import {
     updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import { useNavigate } from "react-router-dom";
+import useLogOutNavigate from "../hooks/useLogOutNavigate";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -60,6 +62,7 @@ const AuthProvider = ({ children }) => {
     const logout = () => {
         setLoading(true);
         localStorage.removeItem("truckZone-token");
+        // useLogOutNavigate();
         return signOut(auth);
     };
 
